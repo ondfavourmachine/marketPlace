@@ -16,8 +16,8 @@ const ProductSchema = new Schema({
 });
 
 interface AProduct extends Document {
-  category: string;
-  owner: string;
+  category?: string;
+  owner?: string;
   title: string;
   description?: string;
   photo: string;

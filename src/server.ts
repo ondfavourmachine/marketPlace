@@ -10,7 +10,8 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 
-import User from "../models/userModel";
+//models
+// import User from "../models/userModel";
 
 // this is to configure environmental variables
 dotenv.config();
@@ -36,26 +37,31 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// routes
+import productRoutes from "../routes/products";
+
+app.use("/api", productRoutes);
+
 // create http routes get, post
 // GET is to retrieve data from the server
-app.get("/", (req: Request, res: Response) => {
-  //   console.log("i am working!");
-  res.send("The sedulous hyena ate the antelope!");
-  //   res.json("The sedulous hyena ate the antelope!");
-});
+// app.get("/", (req: Request, res: Response) => {
+//   //   console.log("i am working!");
+//   res.send("The sedulous hyena ate the antelope!");
+//   //   res.json("The sedulous hyena ate the antelope!");
+// });
 
-// POST is to send data from the frontend to the backend
-app.post("/", (req: Request, res: Response) => {
-  let user = new User();
-  user.name = req.body.name;
-  user.email = req.body.email;
-  user.password = req.body.password;
-  user.save(err => {
-    if (err) return res.json(err);
-    // res.status(200)
-    res.json("User was saved successfully");
-  });
-});
+// // POST is to send data from the frontend to the backend
+// app.post("/", (req: Request, res: Response) => {
+//   let user = new User();
+//   user.name = req.body.name;
+//   user.email = req.body.email;
+//   user.password = req.body.password;
+//   user.save(err => {
+//     if (err) return res.json(err);
+//     // res.status(200)
+//     res.json("User was saved successfully");
+//   });
+// });
 
 app.listen(3000, () => console.log(`Server is listening on 3000`));
 // testing
