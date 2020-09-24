@@ -7,7 +7,7 @@ const CategorySchema = new Schema({
 });
 
 interface Category extends Document {
-  title: string;
+  type: string;
 }
 
 export default model<Category>("Category", CategorySchema);

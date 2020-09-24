@@ -1,40 +1,41 @@
 import express, { Request, Response } from "express"; // new module es6 method
 import Product from "../models/productsModel";
+import upload from "../middlewares/upload-photo";
 
 // const router = require('express').Router() old, commonjs method
 const router = express.Router();
 // Create a post request
-router.post("/products", async (req: Request, res: Response) => {
-  try {
-    // Note that this can be done this way:
-    // const product = new Product({
-    //     category: req.body.category
-    // });
-    const { title, description, photo, stockQuantity } = req.body;
+router.post(
+  "/products",
+  upload.single("photo"),
+  async (req: Request, res: Response) => {
+    try {
+      // Note that this can be done this way:
+      // const product = new Product({
+      //     category: req.body.category
+      // });
+      const { title, description, stockQuantity } = req.body;
+      const product = new Product({
+        category: req.body.category
+      });
+      product.title = title;
+      product.description = description;
+      product.photo = req.file["location"];
+      product.stockQuantity = stockQuantity;
 
-    const product = new Product({
-      category: req.body.category
-    });
-    product.title = title;
-    product.description = description;
-    product.photo = photo;
-    product.stockQuantity = stockQuantity;
-
-    await product.save();
-    res.status(200).json({
-      status: true,
-      message: "Successfully saved"
-    });
-  } catch (e) {
-    res.status(500).json({
-      status: false,
-      message: "Error! Could not save the product"
-    });
+      await product.save();
+      res.status(200).json({
+        status: true,
+        message: "Successfully saved"
+      });
+    } catch (e) {
+      res.status(500).json({
+        status: false,
+        message: "Error! Could not save the product"
+      });
+    }
   }
-});
-
-
-
+);
 
 // Get request  for all Products
 

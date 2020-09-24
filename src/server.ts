@@ -4,7 +4,7 @@
 /* in the package.jsson file the start command means: run tsc to tell typescript to compile to js and then run the compiled js using node */
 // "dev": "nodemon --exec ts-node src/server.ts",
 
-import express, { Request, Response } from "express";
+import express from "express";
 import mongoose from "mongoose";
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
@@ -39,7 +39,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes
 import productRoutes from "../routes/products";
+import categoryRoutes from "../routes/category";
+import ownerRoutes from "../routes/owner";
 
+app.use("/api", categoryRoutes);
+app.use("/api", ownerRoutes);
 app.use("/api", productRoutes);
 
 // create http routes get, post
