@@ -38,8 +38,36 @@ router.post(
 );
 
 // Get request  for all Products
+router.get("/all", async (req: Request, res: Response) => {
+  try {
+    let allProducts = await Product.find();
+    res.status(200).json({
+      success: true,
+      allProducts: allProducts
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
 
 // Get request for a Single Product
+router.get("/product/:id", async (req: Request, res: Response) => {
+  try {
+    let allProducts = await Product.findOne({_id: req.params.id });
+    res.status(200).json({
+      success: true,
+      allProducts: allProducts
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
 
 // Put request to update a single product
 
