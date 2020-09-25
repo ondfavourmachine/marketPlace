@@ -15,7 +15,7 @@ const ProductSchema = new Schema({
   rating: [Number]
 });
 
-interface AProduct extends Document {
+export interface AProduct extends Document {
   category?: string;
   owner?: string;
   title: string;
